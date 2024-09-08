@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js'),
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js'),
         fs = require('node:fs'),
         path = require('path');
 
@@ -12,7 +12,14 @@ module.exports = {
         const filePath = path.join(__dirname, '../data/rules.txt');
         const rules_data = fs.readFileSync(filePath, 'utf8');
         
-        //console.log(rules_data);
-		await interaction.reply(rules_data);
+		const replyMessage = new EmbedBuilder()
+		    .setColor(0x0099FF)
+			.setTitle('ZASADY BLOX FRUIT COMMUNITY')
+			.addFields(
+				{ name: 'rules', value: rules_data }
+			)
+			.setTimestamp();
+
+		await interaction.reply({embeds: [replyMessage]});
 	},
 };
